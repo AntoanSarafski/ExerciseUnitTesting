@@ -43,5 +43,24 @@ namespace Database.Tests
             // Checking the exception message.
 
         }
+
+        [Test]
+        public void CreateDatabaseWith10Elements()
+        {
+            _database = new Database(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+            Assert.AreEqual(10, _database.Count);
+        }
+
+        [Test]
+        public void RemoveFromEmptyDatabaseShouldThrow()
+        {
+            InvalidOperationException exception = Assert
+               .Throws<InvalidOperationException>(() => _database.Remove());
+            // Checking if we remove one element from empty database will we throw expected exception.
+            Assert.That(exception.Message, Is.EqualTo("The collection is empty!"));
+        }
+
+
     }
 }
