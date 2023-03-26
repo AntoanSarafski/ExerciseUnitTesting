@@ -58,6 +58,17 @@ namespace DatabaseExtended.Tests
 
         }
 
+        [Test]
+        public void AddShouldThrowIfNotUniqueId()
+        {
+            _database.Add(new Person(1, "Gosho"));
+
+            InvalidOperationException exception = Assert
+                .Throws<InvalidOperationException>(() => _database.Add(new Person(1, "Peter")));
+            Assert.That(exception.Message, Is.EqualTo("There is already user with this Id!"));
+
+        }
+
         private Person[] CreateFullArray()
         {
             Person[] persons = new Person[16];
@@ -70,22 +81,25 @@ namespace DatabaseExtended.Tests
         }
 
 
-        //[Test]
-        //public void CreateDatabaseWith10Elements()
-        //{
-        //    _database = new Database(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        [Test]
+        public void CreateDatabaseWithTwoElements()
+        {
+            _database = new Database(new Person(1,"Pesho"), new Person(2, "Gosho"));
+            Person first = _database.FindById(1);
+            Person second = _database.FindById(2);
 
-        //    Assert.AreEqual(10, _database.Count);
-        //}
+            Assert.AreEqual(2, _database.Count);
+            Assert.AreEqual("Pesho", first.UserName);
+            Assert.AreEqual("Gosho", second.UserName);
+        }
 
-        //[Test]
-        //public void RemoveFromEmptyDatabaseShouldThrow()
-        //{
-        //    InvalidOperationException exception = Assert
-        //       .Throws<InvalidOperationException>(() => _database.Remove());
-        //    // Checking if we remove one element from empty database will we throw expected exception.
-        //    Assert.That(exception.Message, Is.EqualTo("The collection is empty!"));
-        //}
+        [Test]
+        public void RemoveFromEmptyDatabaseShouldThrow()
+        {
+            Assert.Throws<InvalidOperationException>(() => _database.Remove());
+            // Checking if we remove one element from empty database will we throw expected exception.
+            //Assert.That(exception.Message, Is.EqualTo(null));
+        }
 
         //[Test]
         //public void RemoveFromDatabase()
