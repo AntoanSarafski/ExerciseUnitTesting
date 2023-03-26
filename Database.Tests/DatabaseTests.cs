@@ -61,6 +61,19 @@ namespace Database.Tests
             Assert.That(exception.Message, Is.EqualTo("The collection is empty!"));
         }
 
+        [Test]  
+        public void RemoveFromDatabase()
+        {
+            _database = new Database(1948, 1488);
+            _database.Remove();
+            int[] result = _database.Fetch();
+
+            Assert.AreEqual(1, _database.Count);
+            Assert.AreEqual(1, result.Length);
+            Assert.AreEqual(1948, result[0]);   
+            // Check if we remove correct element.
+
+        }
 
     }
 }
