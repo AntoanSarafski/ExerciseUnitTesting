@@ -139,6 +139,16 @@ namespace DatabaseExtended.Tests
             Assert.That(exception.Message, Is.EqualTo("No user is present by this username!"));
         }
 
+        [Test]  
+        public void FindByUserNameReturnsCorrectUser()
+        {
+            _database = new Database(new Person(1, "Pesho"), new Person(2, "Gosho"));
+            Person person = _database.FindByUsername("Gosho");
+
+            Assert.AreEqual("Gosho", person.UserName);
+            Assert.AreEqual(2, person.Id);
+
+        }
 
     }
 }
