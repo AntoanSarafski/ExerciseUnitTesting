@@ -75,5 +75,15 @@ namespace Database.Tests
 
         }
 
+        [Test]
+        public void FetchDataFromDatabase()
+        {
+            _database = new Database(1, 2, 3);
+            int[] result = _database.Fetch();
+
+            Assert.That(new int[] { 1,2,3 }, Is.EquivalentTo(result));
+        }
+
+
     }
 }
