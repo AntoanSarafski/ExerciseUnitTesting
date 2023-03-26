@@ -119,13 +119,18 @@ namespace DatabaseExtended.Tests
 
         }
 
-        //[Test]
-        //public void FetchDataFromDatabase()
-        //{
-        //    _database = new Database(1, 2, 3);
-        //    int[] result = _database.Fetch();
+        [Test]
+        public void FindByUserNameShouldThrowEmptyOrNullUsernameException()
+        {
+            ArgumentNullException exception = Assert
+                .Throws<ArgumentNullException>(() => _database.FindByUsername(null));
+            Assert.That(exception.ParamName, Is.EqualTo("Username parameter is null!"));
 
-        //    Assert.That(new int[] { 1, 2, 3 }, Is.EquivalentTo(result));
-        //}
+            ArgumentNullException emptyEx = Assert
+                .Throws<ArgumentNullException>(() => _database.FindByUsername(string.Empty));
+            Assert.That(emptyEx.ParamName, Is.EqualTo("Username parameter is null!"));
+        }
+
+
     }
 }
