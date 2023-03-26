@@ -151,7 +151,7 @@ namespace DatabaseExtended.Tests
         }
 
         [Test]
-        public void FindByIdShouldThrowEmptyOrNullUsernameException()
+        public void FindByIdShouldThrowNegativeIdException()
         {
             ArgumentOutOfRangeException zeroException = Assert
                 .Throws<ArgumentOutOfRangeException>(() => _database.FindById(-1));
@@ -159,13 +159,13 @@ namespace DatabaseExtended.Tests
 
         }
 
-        //[Test]
-        //public void FindByUserNameShouldThrowIfUserNameDoesNotExist()
-        //{
-        //    InvalidOperationException exception = Assert
-        //        .Throws<InvalidOperationException>(() => _database.FindByUsername("Ivan"));
-        //    Assert.That(exception.Message, Is.EqualTo("No user is present by this username!"));
-        //}
+        [Test]
+        public void FindByIdShouldThrowIfIdDoesNotExist()
+        {
+            InvalidOperationException exception = Assert
+                .Throws<InvalidOperationException>(() => _database.FindById(1488));
+            Assert.That(exception.Message, Is.EqualTo("No user is present by this ID!"));
+        }
 
         //[Test]
         //public void FindByUserNameReturnsCorrectUser()
