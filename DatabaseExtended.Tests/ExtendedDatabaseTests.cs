@@ -131,6 +131,14 @@ namespace DatabaseExtended.Tests
             Assert.That(emptyEx.ParamName, Is.EqualTo("Username parameter is null!"));
         }
 
+        [Test]
+        public void FindByUserNameShouldThrowIfUserNameDoesNotExist()
+        {
+            InvalidOperationException exception = Assert
+                .Throws<InvalidOperationException>(() => _database.FindByUsername("Ivan"));
+            Assert.That(exception.Message, Is.EqualTo("No user is present by this username!"));
+        }
+
 
     }
 }
