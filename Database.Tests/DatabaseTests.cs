@@ -1,6 +1,7 @@
 namespace Database.Tests
 {
     using NUnit.Framework;
+    using System;
 
     [TestFixture]
     public class DatabaseTests
@@ -28,6 +29,19 @@ namespace Database.Tests
             Assert.IsTrue(1 == _database.Count);
             Assert.AreEqual(1488, result[0]);
             Assert.AreEqual(1, result.Length);
+        }
+
+        [Test]
+        public void ShouldThrowIfMoreThanMaximumLength()
+        {
+            _database = new Database(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+
+            InvalidOperationException exception = Assert
+                .Throws<InvalidOperationException>(() => _database.Add(1948)); 
+            // Checking if we add one more element will we throw expected exception.
+            Assert.That(exception.Message, Is.EqualTo("Array's capacity must be exactly 16 integers!"));
+            // Checking the exception message.
+
         }
     }
 }
