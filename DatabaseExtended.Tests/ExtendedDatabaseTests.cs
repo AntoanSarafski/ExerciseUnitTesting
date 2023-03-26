@@ -97,8 +97,9 @@ namespace DatabaseExtended.Tests
         public void RemoveFromEmptyDatabaseShouldThrow()
         {
             Assert.Throws<InvalidOperationException>(() => _database.Remove());
+            //This is the way to check only Exception, without any message,
+            //cuz InvalidOperationExc have deffault string message and we dont wanna use it.
             // Checking if we remove one element from empty database will we throw expected exception.
-            //Assert.That(exception.Message, Is.EqualTo(null));
         }
 
         //[Test]
