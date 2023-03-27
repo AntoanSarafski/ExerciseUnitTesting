@@ -67,5 +67,15 @@ namespace CarManager.Tests
                 .Throws<ArgumentException>(() => new Car("Subaru", "Legacy", 11.1, fuelCapacity));
             Assert.That(exception.Message, Is.EqualTo("Fuel capacity cannot be zero or negative!"));
         }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-3)]
+        public void RefuelShouldThrowIfLessThanOrEqualTo0(double liters)
+        {
+            ArgumentException exception = Assert
+                .Throws<ArgumentException>(() => car.Refuel(liters));
+            Assert.That(exception.Message, Is.EqualTo("Fuel amount cannot be zero or negative!"));
+        }
     }
 }
