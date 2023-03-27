@@ -17,7 +17,7 @@ namespace CarManager.Tests
             car = null;
         }
 
-        [Test]  
+        [Test]
         public void CreateCar()
         {
             car = new Car("Subaru", "Legacy", 11.1, 60);
@@ -34,7 +34,7 @@ namespace CarManager.Tests
         public void CreateCarFailIfMakeIsNullOrEmpty(string make)
         {
             ArgumentException exception = Assert
-                .Throws<ArgumentException>(() =>  new Car(make, "Legacy", 11.1, 60));
+                .Throws<ArgumentException>(() => new Car(make, "Legacy", 11.1, 60));
             Assert.That(exception.Message, Is.EqualTo("Make cannot be null or empty!"));
         }
 
@@ -94,5 +94,22 @@ namespace CarManager.Tests
             Assert.AreEqual(60, car.FuelAmount);
         }
 
+        [Test]
+        public void DriveShouldThrowIfNotEnoughFuel()
+        {
+            InvalidOperationException exception = Assert
+                .Throws<InvalidOperationException>(() => car.Drive(100));
+            Assert.That(exception.Message, Is.EqualTo("You don't have enough fuel to drive!"));
+        }
+
+        [Test]  
+        public void DriveCarWithCorrectFuelConsimption()
+        {
+            car.Refuel(20);
+            car.Drive(100);
+
+            Assert.AreEqual(8.9, car.FuelAmount);
+
+        }
     }
 }
